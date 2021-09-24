@@ -24,10 +24,10 @@ const coreUint32      CoreApp::Settings::Platform::SteamAppID   = 0u;
 // setup the application
 void CoreApp::Setup()
 {
-    Core::Manager::Resource->Load<coreModel> ("default_cube.md3",        CORE_RESOURCE_UPDATE_AUTO,   "data/models/default_cube.md3");     // TODO 1: remove cluster
-    Core::Manager::Resource->Load<coreModel> ("default_sphere.md3",      CORE_RESOURCE_UPDATE_AUTO,   "data/models/default_sphere.md3");   // TODO 1: remove cluster
-    Core::Manager::Resource->Load<coreModel> ("object_block.md3",        CORE_RESOURCE_UPDATE_AUTO,   "data/models/object_block.md3");     // TODO 1: remove cluster
-    Core::Manager::Resource->Load<coreModel> ("object_enemy.md3",        CORE_RESOURCE_UPDATE_AUTO,   "data/models/object_enemy.md3");     // TODO 1: remove cluster
+    Core::Manager::Resource->Load<coreModel> ("default_cube.md3",        CORE_RESOURCE_UPDATE_AUTO,   "data/models/default_cube.md3", CORE_MODEL_LOAD_NO_CLUSTERS);
+    Core::Manager::Resource->Load<coreModel> ("default_sphere.md3",      CORE_RESOURCE_UPDATE_AUTO,   "data/models/default_sphere.md3", CORE_MODEL_LOAD_NO_CLUSTERS);
+    Core::Manager::Resource->Load<coreModel> ("object_block.md3",        CORE_RESOURCE_UPDATE_AUTO,   "data/models/object_block.md3", CORE_MODEL_LOAD_NO_CLUSTERS);
+    Core::Manager::Resource->Load<coreModel> ("object_enemy.md3",        CORE_RESOURCE_UPDATE_AUTO,   "data/models/object_enemy.md3", CORE_MODEL_LOAD_NO_CLUSTERS);
 
     Core::Manager::Resource->Load<coreShader>("object_block.vert",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_block.vert");
     Core::Manager::Resource->Load<coreShader>("object_block.frag",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_block.frag");
