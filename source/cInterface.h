@@ -16,6 +16,7 @@ class cInterface final
 {
 private:
     coreLabel m_Title;
+    coreLabel m_Name;
     coreLabel m_Message;
 
 
