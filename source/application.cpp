@@ -10,8 +10,8 @@
 // ****************************************************************
 // project settings
 const coreChar* const CoreApp::Settings::Name                   = "Endless Journey";
-const coreChar* const CoreApp::Settings::IconPath               = "data/textures/game_icon.png";
-const coreChar* const CoreApp::Settings::CursorPath             = "data/textures/default_cursor.png";
+const coreChar* const CoreApp::Settings::IconPath               = DEFINED(_CORE_EMSCRIPTEN_) ? NULL : "data/textures/game_icon.png";
+const coreChar* const CoreApp::Settings::CursorPath             = DEFINED(_CORE_EMSCRIPTEN_) ? NULL : "data/textures/default_cursor.png";
 const coreUint8       CoreApp::Settings::Graphics::DepthSize    = 16u;
 const coreUint8       CoreApp::Settings::Graphics::StencilSize  = 8u;
 const coreBool        CoreApp::Settings::Graphics::AlphaChannel = false;
@@ -37,13 +37,13 @@ void CoreApp::Setup()
     Core::Manager::Resource->Load<coreShader>("object_enemy.frag",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_enemy.frag");
     Core::Manager::Resource->Load<coreShader>("object_enemy_inst.vert",  CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_enemy.vert", CORE_SHADER_OPTION_INSTANCING);
     Core::Manager::Resource->Load<coreShader>("object_enemy_inst.frag",  CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_enemy.frag", CORE_SHADER_OPTION_INSTANCING);
-    Core::Manager::Resource->Load<coreShader>("object_player.vert",      CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_player.vert");
+    Core::Manager::Resource->Load<coreShader>("object_player.vert",      CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_player.vert", CORE_SHADER_OPTION_NO_ROTATION);
     Core::Manager::Resource->Load<coreShader>("object_player.frag",      CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_player.frag");
-    Core::Manager::Resource->Load<coreShader>("shadow_layer.vert",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_layer.vert");
+    Core::Manager::Resource->Load<coreShader>("shadow_layer.vert",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_layer.vert", CORE_SHADER_OPTION_NO_ROTATION);
     Core::Manager::Resource->Load<coreShader>("shadow_layer.frag",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_layer.frag");
-    Core::Manager::Resource->Load<coreShader>("shadow_object.vert",      CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_object.vert");
+    Core::Manager::Resource->Load<coreShader>("shadow_object.vert",      CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_object.vert", CORE_SHADER_OPTION_NO_ROTATION);
     Core::Manager::Resource->Load<coreShader>("shadow_object.frag",      CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_object.frag", CORE_SHADER_OPTION_NO_EARLY_DEPTH);
-    Core::Manager::Resource->Load<coreShader>("shadow_object_inst.vert", CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_object.vert", CORE_SHADER_OPTION_INSTANCING);
+    Core::Manager::Resource->Load<coreShader>("shadow_object_inst.vert", CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_object.vert", CORE_SHADER_OPTION_INSTANCING CORE_SHADER_OPTION_NO_ROTATION);
     Core::Manager::Resource->Load<coreShader>("shadow_object_inst.frag", CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_object.frag", CORE_SHADER_OPTION_INSTANCING CORE_SHADER_OPTION_NO_EARLY_DEPTH);
 
     d_cast<coreProgram*>(Core::Manager::Resource->Load<coreProgram>("object_block_program", CORE_RESOURCE_UPDATE_AUTO, NULL)->GetRawResource())
