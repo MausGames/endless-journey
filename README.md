@@ -10,8 +10,12 @@ Endless Journey is a **spiritual arcade climber** made in less than sixteen hour
 
 #
 
-[![screenshot](material/screenshots/enj_screen_001t.jpg)](material/screenshots/enj_screen_001.jpg?raw=true)
-[![screenshot](material/screenshots/enj_screen_002t.jpg)](material/screenshots/enj_screen_002.jpg?raw=true)
-[![screenshot](material/screenshots/enj_screen_003t.jpg)](material/screenshots/enj_screen_003.jpg?raw=true)
+<table>
+    <tr>
+        <td><a href="material/screenshots/enj_screen_001.jpg?raw=true"><img src="material/screenshots/enj_screen_001t.jpg" /></a></td>
+        <td><a href="material/screenshots/enj_screen_002.jpg?raw=true"><img src="material/screenshots/enj_screen_002t.jpg" /></a></td>
+        <td><a href="material/screenshots/enj_screen_003.jpg?raw=true"><img src="material/screenshots/enj_screen_003t.jpg" /></a></td>
+    </tr>
+</table>
 
 [1]: https://mipumi.com
