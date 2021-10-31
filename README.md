@@ -10,6 +10,11 @@ Endless Journey is a **spiritual arcade climber** made in less than sixteen hour
 
 #
 
+**Browser Version:**  
+<https://mausgames.itch.io/endless-journey>
+
+#
+
 <table>
     <tr>
         <td><a href="material/screenshots/enj_screen_001.jpg?raw=true"><img src="material/screenshots/enj_screen_001t.jpg" /></a></td>
