@@ -12,6 +12,8 @@ STATIC_MEMORY(cInterface, g_pInterface)
 STATIC_MEMORY(cGame,      g_pGame)
 STATIC_MEMORY(cShadow,    g_pShadow)
 
+static coreMusicPlayer s_MusicPlayer = {};
+
 
 // ****************************************************************
 // init the application
@@ -23,6 +25,9 @@ void CoreApp::Init()
     STATIC_NEW(g_pInterface)
     STATIC_NEW(g_pGame)
     STATIC_NEW(g_pShadow)
+
+    s_MusicPlayer.AddMusicFolder("data/music", "*.ogg");
+    s_MusicPlayer.Control()->Play();
 }
 
 
@@ -30,6 +35,8 @@ void CoreApp::Init()
 // exit the application
 void CoreApp::Exit()
 {
+    s_MusicPlayer.ClearMusic();
+
     STATIC_DELETE(g_pShadow)
     STATIC_DELETE(g_pGame)
     STATIC_DELETE(g_pInterface)
@@ -63,4 +70,6 @@ void CoreApp::Move()
 
     g_pGame     ->Move();
     g_pInterface->Move();
+
+    s_MusicPlayer.Update();
 }
