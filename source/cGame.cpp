@@ -88,6 +88,7 @@ void cGame::Move()
     m_Player.Move();
 
     m_PlayerShadow.SetPosition(m_Player.GetPosition());
+    m_PlayerShadow.SetEnabled (m_Player.IsEnabled(CORE_OBJECT_ENABLE_ALL) ? CORE_OBJECT_ENABLE_ALL : CORE_OBJECT_ENABLE_NOTHING);
     m_PlayerShadow.Move();
 
     const coreBool bFinished = m_Player.IsFinished();

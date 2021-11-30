@@ -30,13 +30,7 @@ cPlayer::cPlayer()noexcept
 // ****************************************************************
 void cPlayer::Move()
 {
-    if(this->IsFinished())
-    {
-        this->SetPosition(coreVector3(1000.0f,1000.0f,1000.0f));
-        this->SetEnabled (CORE_OBJECT_ENABLE_NOTHING);
-
-        return;
-    }
+    if(this->IsFinished()) return;
 
     Core::Input->ForwardHatToStick(0u);
 
@@ -80,6 +74,8 @@ void cPlayer::Move()
         {
             m_fStepValue = 0.0f;
             m_iStepOld   = m_iStepNew;
+
+            if(this->IsFinished()) this->SetEnabled(CORE_OBJECT_ENABLE_NOTHING);
         }
     }
 
