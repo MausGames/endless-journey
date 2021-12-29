@@ -14,7 +14,7 @@ Endless Journey is a **spiritual arcade climber** made in less than sixteen hour
 <https://mausgames.itch.io/endless-journey>
 
 **Music:**  
-by Kevin MacLeod (<https://incompetech.com/music/royalty-free/index.html?genre=Electronica>)  
+by Kevin MacLeod (<https://incompetech.com>)  
 Licensed under CC BY (<https://creativecommons.org/licenses/by/4.0/>)
 
 #

@@ -16,7 +16,7 @@ void VertexMain()
     gl_Position      = coreObject3DPositionRaw();
     v_av2TexCoord[0] = coreObject3DTexCoordRaw();
 
-    coreLightingTransform(coreObject3DTransformRaw());
+    coreLightingTransformRaw();
 
     v_v1Distance = length(a_v3RawPosition) * 0.3 + 0.05;
 }
