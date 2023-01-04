@@ -56,6 +56,6 @@ void cInterface::Move()
     m_Name.SetPosition(coreVector2(0.0f, 0.085f + fOffset));
     m_Name.Move();
 
-    m_Message.SetAlpha(LERPH3(0.0f, 1.0f, CLAMP((g_pGame->GetEndTime() - 6.0f) * 0.5f, 0.0f, 1.0f)));
+    m_Message.SetAlpha(BLENDH3(CLAMP01((g_pGame->GetEndTime() - 6.0f) * 0.5f)));
     m_Message.Move();
 }

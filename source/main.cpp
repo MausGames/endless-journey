@@ -27,7 +27,7 @@ void CoreApp::Init()
     STATIC_NEW(g_pShadow)
 
     s_MusicPlayer.AddMusicFolder("data/music", "*.ogg");
-    s_MusicPlayer.Control()->Play();
+    s_MusicPlayer.Play();
 }
 
 
