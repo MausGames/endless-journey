@@ -9,16 +9,22 @@
 
 // ****************************************************************
 // project settings
-const coreChar* const CoreApp::Settings::Name                   = "Endless Journey";
-const coreChar* const CoreApp::Settings::IconPath               = DEFINED(_CORE_EMSCRIPTEN_) ? NULL : "data/textures/game_icon.png";
-const coreChar* const CoreApp::Settings::CursorPath             = DEFINED(_CORE_EMSCRIPTEN_) ? NULL : "data/textures/default_cursor.png";
-const coreBool        CoreApp::Settings::UserManagement         = false;
-const coreUint8       CoreApp::Settings::Graphics::DepthSize    = 16u;
-const coreUint8       CoreApp::Settings::Graphics::StencilSize  = 8u;
-const coreBool        CoreApp::Settings::Graphics::AlphaChannel = false;
-const coreBool        CoreApp::Settings::Graphics::DoubleBuffer = true;
-const coreBool        CoreApp::Settings::Graphics::StereoRender = false;
-const coreUint32      CoreApp::Settings::Platform::SteamAppID   = 0u;
+const coreChar* const CoreApp::Settings::Name                          = "Endless Journey";
+const coreChar* const CoreApp::Settings::Version                       = "1.0.0";
+const coreChar* const CoreApp::Settings::IconPath                      = "data/textures/game_icon.webp";
+const coreChar* const CoreApp::Settings::CursorPath                    = "data/textures/default_cursor.webp";
+const coreBool        CoreApp::Settings::UserManagement                = false;
+const coreUint8       CoreApp::Settings::Graphics::DepthSize           = 16u;
+const coreUint8       CoreApp::Settings::Graphics::StencilSize         = 8u;
+const coreBool        CoreApp::Settings::Graphics::AlphaChannel        = false;
+const coreBool        CoreApp::Settings::Graphics::DoubleBuffer        = true;
+const coreBool        CoreApp::Settings::Graphics::StereoRender        = false;
+const coreUint32      CoreApp::Settings::Platform::SteamAppID          = 0u;
+const coreChar* const CoreApp::Settings::Platform::EpicProductID       = NULL;
+const coreChar* const CoreApp::Settings::Platform::EpicSandboxID   [3] = {NULL, NULL, NULL};
+const coreChar* const CoreApp::Settings::Platform::EpicDeploymentID[3] = {NULL, NULL, NULL};
+const coreChar* const CoreApp::Settings::Platform::EpicClientID        = NULL;
+const coreChar* const CoreApp::Settings::Platform::EpicClientSecret    = NULL;
 
 
 // ****************************************************************
@@ -46,6 +52,9 @@ void CoreApp::Setup()
     Core::Manager::Resource->Load<coreShader>("shadow_object.frag",      CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_object.frag", CORE_SHADER_OPTION_NO_EARLY_DEPTH);
     Core::Manager::Resource->Load<coreShader>("shadow_object_inst.vert", CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_object.vert", CORE_SHADER_OPTION_INSTANCING CORE_SHADER_OPTION_NO_ROTATION);
     Core::Manager::Resource->Load<coreShader>("shadow_object_inst.frag", CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_object.frag", CORE_SHADER_OPTION_INSTANCING CORE_SHADER_OPTION_NO_EARLY_DEPTH);
+
+    Core::Manager::Resource->Load<coreSound> ("bell.opus",               CORE_RESOURCE_UPDATE_AUTO,   "data/sounds/bell.opus");
+    Core::Manager::Resource->Load<coreSound> ("kick.opus",               CORE_RESOURCE_UPDATE_AUTO,   "data/sounds/kick.opus", CORE_SOUND_LOAD_MULAW);
 
     d_cast<coreProgram*>(Core::Manager::Resource->Load<coreProgram>("object_block_program", CORE_RESOURCE_UPDATE_AUTO, NULL)->GetRawResource())
         ->AttachShader("object_block.vert")

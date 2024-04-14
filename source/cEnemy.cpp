@@ -38,7 +38,7 @@ void cEnemy::Move()
 
     switch(m_iBaseType)
     {
-    default: ASSERT(false)
+    default: UNREACHABLE
 
     // move
     case 0u:

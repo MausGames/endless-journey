@@ -27,6 +27,9 @@ private:
 
     coreVector3 m_vCamBase;
 
+    coreSoundPtr m_pKickSound;
+    coreSoundPtr m_pBellSound;
+
 
 public:
     cPlayer()noexcept;

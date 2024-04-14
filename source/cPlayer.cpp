@@ -24,6 +24,9 @@ cPlayer::cPlayer()noexcept
     this->DefineProgram("object_player_program");
 
     this->SetSize(coreVector3(1.0f,1.0f,1.0f) * 0.5f);
+
+    m_pKickSound = Core::Manager::Resource->Get<coreSound>("kick.opus");
+    m_pBellSound = Core::Manager::Resource->Get<coreSound>("bell.opus");
 }
 
 
@@ -32,12 +35,12 @@ void cPlayer::Move()
 {
     if(this->IsFinished()) return;
 
-    Core::Input->ForwardHatToStick(0u);
+    Core::Input->ForwardHatToStick(CORE_INPUT_JOYSTICK_ANY);
 
-    const coreVector2 vJoystickMove = Core::Input->GetJoystickRelativeL(0u);
+    const coreVector2 vJoystickMove = Core::Input->GetJoystickStickL(CORE_INPUT_JOYSTICK_ANY);
 
-    const coreBool bInputUp    = (Core::Input->GetKeyboardButton(CORE_INPUT_KEY(W), CORE_INPUT_PRESS) || Core::Input->GetKeyboardButton(CORE_INPUT_KEY(UP),    CORE_INPUT_PRESS) || Core::Input->GetMouseButton(CORE_INPUT_LEFT,  CORE_INPUT_PRESS) || Core::Input->GetJoystickButton(0u, 0u, CORE_INPUT_PRESS));
-    const coreBool bInputDown  = (Core::Input->GetKeyboardButton(CORE_INPUT_KEY(S), CORE_INPUT_PRESS) || Core::Input->GetKeyboardButton(CORE_INPUT_KEY(DOWN),  CORE_INPUT_PRESS) || Core::Input->GetMouseButton(CORE_INPUT_RIGHT, CORE_INPUT_PRESS) || Core::Input->GetJoystickButton(0u, 1u, CORE_INPUT_PRESS));
+    const coreBool bInputUp    = (Core::Input->GetKeyboardButton(CORE_INPUT_KEY(W), CORE_INPUT_PRESS) || Core::Input->GetKeyboardButton(CORE_INPUT_KEY(UP),    CORE_INPUT_PRESS) || Core::Input->GetMouseButton(CORE_INPUT_LEFT,  CORE_INPUT_PRESS) || Core::Input->GetJoystickButton(CORE_INPUT_JOYSTICK_ANY, 0u, CORE_INPUT_PRESS));
+    const coreBool bInputDown  = (Core::Input->GetKeyboardButton(CORE_INPUT_KEY(S), CORE_INPUT_PRESS) || Core::Input->GetKeyboardButton(CORE_INPUT_KEY(DOWN),  CORE_INPUT_PRESS) || Core::Input->GetMouseButton(CORE_INPUT_RIGHT, CORE_INPUT_PRESS) || Core::Input->GetJoystickButton(CORE_INPUT_JOYSTICK_ANY, 1u, CORE_INPUT_PRESS));
     const coreBool bInputLeft  = (Core::Input->GetKeyboardButton(CORE_INPUT_KEY(A), CORE_INPUT_HOLD)  || Core::Input->GetKeyboardButton(CORE_INPUT_KEY(LEFT),  CORE_INPUT_HOLD)  || (vJoystickMove.x < 0.0f));
     const coreBool bInputRight = (Core::Input->GetKeyboardButton(CORE_INPUT_KEY(D), CORE_INPUT_HOLD)  || Core::Input->GetKeyboardButton(CORE_INPUT_KEY(RIGHT), CORE_INPUT_HOLD)  || (vJoystickMove.x > 0.0f));
 
@@ -61,8 +64,8 @@ void cPlayer::Move()
 
     const coreFloat fSpeed = 600.0f * RCP(2.0f*PI * m_vLayerPos.x + 1.5f);
 
-         if(bInputLeft)  m_fVelocity -= TIME * fSpeed;
-    else if(bInputRight) m_fVelocity += TIME * fSpeed;
+    if(bInputLeft)  m_fVelocity -= TIME * fSpeed;
+    if(bInputRight) m_fVelocity += TIME * fSpeed;
 
     m_fLayerAngle += TIME * m_fVelocity;
     m_fVelocity   *= 1.0f - TIME * 8.0f;
@@ -75,7 +78,11 @@ void cPlayer::Move()
             m_fStepValue = 0.0f;
             m_iStepOld   = m_iStepNew;
 
-            if(this->IsFinished()) this->SetEnabled(CORE_OBJECT_ENABLE_NOTHING);
+            if(this->IsFinished())
+            {
+                this->SetEnabled(CORE_OBJECT_ENABLE_NOTHING);
+                if(m_pBellSound.IsUsable()) m_pBellSound->PlayRelative(NULL, 0.5f, 1.0f, false, 0u);
+            }
         }
     }
 
@@ -108,6 +115,8 @@ coreBool cPlayer::Kick()
         m_iStepNew   = MIN(m_iStepNew + KICK, STEPS - 1u);
         m_fStepValue = 0.0f;
         m_fStepSpeed = 0.5f;
+
+        if(m_pKickSound.IsUsable()) m_pKickSound->PlayRelative(NULL, 0.7f, 1.0f, false, 0u);
 
         return true;
     }
