@@ -13,6 +13,6 @@
 cBlock::cBlock()noexcept
 : m_iState (0u)
 {
-    this->DefineModel  ("object_block.md3");
+    this->DefineModel  ("object_block.md3z");
     this->DefineProgram("object_block_program");
 }

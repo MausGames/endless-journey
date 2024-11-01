@@ -20,7 +20,7 @@ cPlayer::cPlayer()noexcept
 , m_fVelocity   (0.0f)
 , m_vCamBase    (coreVector3(0.0f,0.0f,0.0f))
 {
-    this->DefineModel  ("default_sphere.md3");
+    this->DefineModel  ("default_sphere.md3z");
     this->DefineProgram("object_player_program");
 
     this->SetSize(coreVector3(1.0f,1.0f,1.0f) * 0.5f);

@@ -64,6 +64,10 @@ cGame::cGame()noexcept
 // ****************************************************************
 cGame::~cGame()
 {
+    m_EnemyPool      .Shutdown();
+    m_EnemyShadowPool.Shutdown();
+    m_BlockPool      .Shutdown();
+
     FOR_EACH(it, *m_EnemyList      .List()) POOLED_DELETE(m_EnemyPool,       *it)
     FOR_EACH(it, *m_EnemyShadowList.List()) POOLED_DELETE(m_EnemyShadowPool, *it)
     FOR_EACH(it, *m_BlockList      .List()) POOLED_DELETE(m_BlockPool,       *it)
@@ -233,7 +237,7 @@ RETURN_RESTRICT cEnemy* cGame::__CreateEnemy(const coreUint8 iType)
     pEnemy->SetBaseType(iType);
 
     coreObject3D* pShadow = POOLED_NEW(m_EnemyShadowPool, coreObject3D);
-    pShadow->DefineModel  ("default_sphere.md3");
+    pShadow->DefineModel  ("default_sphere.md3z");
     pShadow->DefineProgram("shadow_object_program");
     pShadow->SetSize      (coreVector3(0.99f,0.99f,3.0f) * 0.65f);
 

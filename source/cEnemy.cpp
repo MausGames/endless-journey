@@ -24,7 +24,7 @@ cEnemy::cEnemy()noexcept
 , m_fRotation   (0.0f)
 , m_fBump       (0.0f)
 {
-    this->DefineModel  ("object_enemy.md3");
+    this->DefineModel  ("object_enemy.md3z");
     this->DefineProgram("object_enemy_program");
 
     this->SetSize(coreVector3(1.0f,1.0f,1.0f) * 0.5f);
