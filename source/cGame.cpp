@@ -20,7 +20,7 @@ cGame::cGame()noexcept
 , m_vEndCamPos      (coreVector3(0.0f,0.0f,0.0f))
 , m_fEndCamLen      (0.0f)
 {
-    m_PlayerShadow.DefineModel  ("default_sphere.md3");
+    m_PlayerShadow.DefineModel  ("default_sphere.md3z");
     m_PlayerShadow.DefineProgram("shadow_object_program");
     m_PlayerShadow.SetSize      (coreVector3(0.99f,0.99f,3.0f) * 0.55f);
 
@@ -114,11 +114,11 @@ void cGame::Move()
         m_fEndCamLen.Update(STEP(0.0f, 2.0f, m_fEndTime - 3.0f) *  4.0f);
 
         const coreVector2 vEndDir = coreVector2::Direction(m_fEndAngle);
-        const coreFloat   fTime   = CLAMP01((m_fEndTime - 1.0f) * 0.2f);
+        const coreFloat   fTime   = BLENDS(CLAMP01((m_fEndTime - 1.0f) * 0.2f));
 
-        const coreVector3 vCamDir = LERPS(coreVector3(vEndDir, 0.5f), coreVector3(0.0f,0.0f,1.0f),           fTime).Normalized();
-        const coreVector3 vCamOri = LERPS(CAMERA_ORIENTATION,         coreVector3(-vEndDir, 0.0f),           fTime).Normalized();
-        const coreVector3 vCamPos = LERPS(m_vEndCamPos,               vCamDir * (m_fEndCamLen + m_fEndTime), fTime);
+        const coreVector3 vCamDir = LERP(coreVector3(vEndDir, 0.5f), coreVector3(0.0f,0.0f,1.0f),                      fTime).Normalized();
+        const coreVector3 vCamOri = LERP(CAMERA_ORIENTATION,         coreVector3(-vEndDir, 0.0f),                      fTime).Normalized();
+        const coreVector3 vCamPos = LERP(m_vEndCamPos,               vCamDir * MIN(m_fEndCamLen + m_fEndTime, 200.0f), fTime);
 
         Core::Graphics->SetCamera(vCamPos, -vCamDir, vCamOri);
     }
@@ -149,7 +149,7 @@ void cGame::Move()
 
         if(bFinished)
         {
-            const coreFloat fRealTime = m_fEndTime + 0.05f * vPos.z;
+            const coreFloat fRealTime = 1.1f * m_fEndTime + 0.05f * vPos.z;
             pEnemy->SetShift(MAX0(fRealTime) * 40.0f);
         }
 

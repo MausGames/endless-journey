@@ -32,6 +32,10 @@ void CoreApp::Init()
 
     s_MusicPlayer.AddMusicFolder("data/music", "*.opus");
     s_MusicPlayer.Play();
+
+#if !defined(_CORE_EMSCRIPTEN_)
+    Core::Input->ShowCursor(false);
+#endif
 }
 
 
@@ -72,11 +76,6 @@ void CoreApp::Move()
     if(Core::System->GetWinSizeChanged())
     {
         Core::Reshape();
-    }
-
-    if(Core::Input->GetKeyboardButton(CORE_INPUT_KEY(ESCAPE), CORE_INPUT_PRESS))
-    {
-        Core::System->Quit();
     }
 
     const coreVector2 vResolution = Core::System->GetResolution();
