@@ -38,6 +38,8 @@ void CoreApp::Setup()
     Core::Manager::Resource->Load<coreModel> ("object_block.md3z",       CORE_RESOURCE_UPDATE_AUTO,   "data/models/object_block.md3z", CORE_MODEL_LOAD_NO_CLUSTERS);
     Core::Manager::Resource->Load<coreModel> ("object_enemy.md3z",       CORE_RESOURCE_UPDATE_AUTO,   "data/models/object_enemy.md3z", CORE_MODEL_LOAD_NO_CLUSTERS);
 
+    Core::Manager::Resource->Load<coreShader>("fullscreen.vert",         CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/fullscreen.vert", CORE_SHADER_OPTION_NO_ROTATION);
+    Core::Manager::Resource->Load<coreShader>("fullscreen.frag",         CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/fullscreen.frag");
     Core::Manager::Resource->Load<coreShader>("object_block.vert",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_block.vert");
     Core::Manager::Resource->Load<coreShader>("object_block.frag",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_block.frag");
     Core::Manager::Resource->Load<coreShader>("object_block_inst.vert",  CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_block.vert", CORE_SHADER_OPTION_INSTANCING);
@@ -57,6 +59,11 @@ void CoreApp::Setup()
 
     Core::Manager::Resource->Load<coreSound> ("bell.opus",               CORE_RESOURCE_UPDATE_AUTO,   "data/sounds/bell.opus");
     Core::Manager::Resource->Load<coreSound> ("kick.opus",               CORE_RESOURCE_UPDATE_AUTO,   "data/sounds/kick.opus", CORE_SOUND_LOAD_MULAW);
+
+    d_cast<coreProgram*>(Core::Manager::Resource->Load<coreProgram>("fullscreen_program", CORE_RESOURCE_UPDATE_AUTO, NULL)->GetRawResource())
+        ->AttachShader("fullscreen.vert")
+        ->AttachShader("fullscreen.frag")
+        ->Finish();
 
     d_cast<coreProgram*>(Core::Manager::Resource->Load<coreProgram>("object_block_program", CORE_RESOURCE_UPDATE_AUTO, NULL)->GetRawResource())
         ->AttachShader("object_block.vert")

@@ -8,9 +8,10 @@
 ///////////////////////////////////////////////////////////
 #include "main.h"
 
-STATIC_MEMORY(cInterface, g_pInterface)
-STATIC_MEMORY(cGame,      g_pGame)
-STATIC_MEMORY(cShadow,    g_pShadow)
+STATIC_MEMORY(cInterface,     g_pInterface)
+STATIC_MEMORY(cGame,          g_pGame)
+STATIC_MEMORY(cShadow,        g_pShadow)
+STATIC_MEMORY(coreFullscreen, s_pFullscreen)
 
 static coreMusicPlayer s_MusicPlayer = {};
 
@@ -25,6 +26,9 @@ void CoreApp::Init()
     STATIC_NEW(g_pInterface)
     STATIC_NEW(g_pGame)
     STATIC_NEW(g_pShadow)
+    STATIC_NEW(s_pFullscreen)
+
+    s_pFullscreen->DefineProgram("fullscreen_program");
 
     s_MusicPlayer.AddMusicFolder("data/music", "*.opus");
     s_MusicPlayer.Play();
@@ -37,6 +41,7 @@ void CoreApp::Exit()
 {
     s_MusicPlayer.ClearMusic();
 
+    STATIC_DELETE(s_pFullscreen)
     STATIC_DELETE(g_pShadow)
     STATIC_DELETE(g_pGame)
     STATIC_DELETE(g_pInterface)
@@ -47,7 +52,13 @@ void CoreApp::Exit()
 // render the application
 void CoreApp::Render()
 {
-    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glDisable(GL_BLEND);
+    glDisable(GL_DEPTH_TEST);
+    {
+        s_pFullscreen->Render();
+    }
+    glEnable(GL_BLEND);
+    glEnable(GL_DEPTH_TEST);
 
     g_pGame     ->Render();
     g_pInterface->Render();
@@ -68,8 +79,12 @@ void CoreApp::Move()
         Core::System->Quit();
     }
 
-    g_pGame     ->Move();
-    g_pInterface->Move();
+    const coreVector2 vResolution = Core::System->GetResolution();
+    s_pFullscreen->SetSize(vResolution / vResolution.Min());
+
+    g_pGame      ->Move();
+    g_pInterface ->Move();
+    s_pFullscreen->Move();
 
     s_MusicPlayer.Update();
 }
