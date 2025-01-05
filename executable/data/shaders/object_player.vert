@@ -12,8 +12,7 @@
 
 void VertexMain()
 {
-    gl_Position      = coreObject3DPositionRaw();
-    v_av2TexCoord[0] = coreObject3DTexCoordRaw();
+    gl_Position = coreObject3DPositionRaw();
 
     coreLightingTransformRaw();
 }

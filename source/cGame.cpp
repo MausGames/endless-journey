@@ -22,7 +22,7 @@ cGame::cGame()noexcept
 {
     m_PlayerShadow.DefineModel  ("default_sphere.md3");
     m_PlayerShadow.DefineProgram("shadow_object_program");
-    m_PlayerShadow.SetSize      (coreVector3(0.99f,0.99f,3.0f) * 0.5f);
+    m_PlayerShadow.SetSize      (coreVector3(0.99f,0.99f,3.0f) * 0.55f);
 
     m_EnemyPool      .Configure(sizeof(cEnemy),       1024u);
     m_EnemyShadowPool.Configure(sizeof(coreObject3D), 1024u);
@@ -205,8 +205,12 @@ void cGame::Move()
                 const coreVector3 vDiff = m_Player.GetPosition() - vPos;
                 if((vDiff.z > 1.4f) && (vDiff.z < 1.8f) && (vDiff.xy().LengthSq() < POW2(1.7f)))
                 {
-                    pBlock->SetColor3(coreVector3(FRACT(I_TO_F(m_iScore) * 0.01f), 0.7f, 0.9f).HsvToRgb());
+                    const coreVector3 vColor = coreVector3(FRACT(I_TO_F(m_iScore) * 0.01f), 0.7f, 0.9f).HsvToRgb();
+
+                    pBlock->SetColor3(vColor);
                     pBlock->SetState (1u);
+
+                    m_Player.SetColor3(vColor);
 
                     m_iScore += 1u;
                 }

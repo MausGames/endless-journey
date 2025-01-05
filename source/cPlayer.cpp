@@ -20,10 +20,10 @@ cPlayer::cPlayer()noexcept
 , m_fVelocity   (0.0f)
 , m_vCamBase    (coreVector3(0.0f,0.0f,0.0f))
 {
-    this->DefineModel  ("default_sphere.md3z");
+    this->DefineModel  ("object_player.md3z");
     this->DefineProgram("object_player_program");
 
-    this->SetSize(coreVector3(1.0f,1.0f,1.0f) * 0.5f);
+    this->SetSize(coreVector3(1.0f,1.0f,1.0f) * 0.55f);
 
     m_pKickSound = Core::Manager::Resource->Get<coreSound>("kick.opus");
     m_pBellSound = Core::Manager::Resource->Get<coreSound>("bell.opus");
@@ -90,7 +90,6 @@ void cPlayer::Move()
 
     const coreVector2 vLayerDir = coreVector2::Direction(m_fLayerAngle);
     const coreFloat   fJump     = SIN(m_fStepValue * PI) * RCP(m_fStepSpeed) * (bFinalJump ? 2.0f : 1.2f);
-    const coreFloat   fStretch  = SIN(m_fStepValue * PI) * 0.2f + 1.0f;
 
     m_vLayerPos.x = (LERPS(I_TO_F(m_iStepOld), I_TO_F(m_iStepNew),                          m_fStepValue) - 1.0f) *  BLOCK_DISTANCE + BLOCK_START - 1.0f;
     m_vLayerPos.y = (LERPS(I_TO_F(m_iStepOld), I_TO_F(m_iStepNew + (bFinalJump ? 4u : 0u)), m_fStepValue) - 1.0f) * -BLOCK_HEIGHT;
@@ -100,7 +99,25 @@ void cPlayer::Move()
     if(!bFinalJump) m_vCamBase = vPos;
 
     this->SetPosition(coreVector3(vPos.xy(), vPos.z + fJump));
-    this->SetSize    (coreVector3(1.0f, 1.0f, fStretch) * 0.5f);
+
+    if(!vPos.xy().IsNull())
+    {
+        if(!coreMath::IsNear(m_fVelocity, 0.0f))
+        {
+            const coreMatrix3 mRota = coreMatrix4::RotationAxis(m_fVelocity * RCP(fSpeed) * TIME * -150.0f, coreVector3(vPos.xy().Normalized(), 0.0f)).m123();
+
+            this->SetDirection  ((this->GetDirection  () * mRota).Normalized());
+            this->SetOrientation((this->GetOrientation() * mRota).Normalized());
+        }
+
+        if(m_iStepOld != m_iStepNew)
+        {
+            const coreMatrix3 mRota = coreMatrix4::RotationAxis((I_TO_F(m_iStepNew) - I_TO_F(m_iStepOld)) * TIME * -4.0f, coreVector3(vPos.xy().Rotated90().Normalized(), 0.0f)).m123();
+
+            this->SetDirection  ((this->GetDirection  () * mRota).Normalized());
+            this->SetOrientation((this->GetOrientation() * mRota).Normalized());
+        }
+    }
 
     this->coreObject3D::Move();
 }
