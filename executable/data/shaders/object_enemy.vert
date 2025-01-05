@@ -15,10 +15,9 @@ varying float v_v1Distance;
 
 void VertexMain()
 {
-    gl_Position      = coreObject3DPositionRaw();
-    v_av2TexCoord[0] = coreObject3DTexCoordRaw();
+    gl_Position = coreObject3DPositionRaw();
 
     coreLightingTransformRaw();
 
-    v_v1Distance = length(a_v3RawPosition) * 0.3 + 0.05;
+    v_v1Distance = length(a_v3RawPosition) * 0.4 - 0.05;
 }

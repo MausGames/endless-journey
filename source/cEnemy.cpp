@@ -27,7 +27,8 @@ cEnemy::cEnemy()noexcept
     this->DefineModel  ("object_enemy.md3z");
     this->DefineProgram("object_enemy_program");
 
-    this->SetSize(coreVector3(1.0f,1.0f,1.0f) * 0.5f);
+    this->SetSize  (coreVector3(1.0f,1.0f,1.0f) * 0.5f);
+    this->SetColor3(coreVector3(1.0f,1.0f,1.0f) * Core::Rand->Float(0.85f, 1.0f));
 }
 
 
