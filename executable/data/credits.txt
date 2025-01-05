@@ -23,6 +23,7 @@ Sounds
 
 Fonts
 - Google : Noto Sans : fonts/default.ttf (OFL)
+- Khurasan : Winter Selfie : fonts/winterselfie.ttf (freeware)
 
 
 -------------------------------------------------------------------

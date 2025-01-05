@@ -61,6 +61,8 @@ void CoreApp::Setup()
     Core::Manager::Resource->Load<coreSound> ("bell.opus",               CORE_RESOURCE_UPDATE_AUTO,   "data/sounds/bell.opus");
     Core::Manager::Resource->Load<coreSound> ("kick.opus",               CORE_RESOURCE_UPDATE_AUTO,   "data/sounds/kick.opus", CORE_SOUND_LOAD_MULAW);
 
+    Core::Manager::Resource->Load<coreFont>  ("winterselfie.ttf",        CORE_RESOURCE_UPDATE_AUTO,   "data/fonts/winterselfie.ttf", TTF_HINTING_LIGHT_SUBPIXEL);
+
     d_cast<coreProgram*>(Core::Manager::Resource->Load<coreProgram>("fullscreen_program", CORE_RESOURCE_UPDATE_AUTO, NULL)->GetRawResource())
         ->AttachShader("fullscreen.vert")
         ->AttachShader("fullscreen.frag")
