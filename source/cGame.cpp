@@ -36,7 +36,7 @@ cGame::cGame()noexcept
 
     m_EnemyList.MoveNormal();   // for first culling iteration
 
-    cBlock oTemplate;   // for faster resource lookup
+    const cBlock oTemplate;   // for faster resource lookup
 
     for(coreUintW j = 0u; j < STEPS; ++j)
     {
@@ -45,6 +45,7 @@ cGame::cGame()noexcept
         const coreFloat fRadius   = 2.0f*PI * fDistance;
         const coreUintW iNum      = FLOOR(fRadius / 2.7f);
         const coreFloat fAngle    = 2.0f*PI * RCP(I_TO_F(iNum));
+        const coreFloat fFix      = 1.0f + FRACT(fRadius / 2.7f) * RCP(I_TO_F(iNum));
 
         for(coreUintW i = 0u; i < iNum; ++i)
         {
@@ -53,7 +54,9 @@ cGame::cGame()noexcept
             const coreVector2 vDir = coreVector2::Direction(I_TO_F(i) * fAngle);
 
             pBlock->SetPosition (coreVector3(vDir * -fDistance, fHeight));
+            pBlock->SetSize     (coreVector3(1.3f * fFix, 1.0f, 1.0f));
             pBlock->SetDirection(coreVector3(vDir, 0.0f));
+            pBlock->SetColor3   (coreVector3(1.0f,1.0f,1.0f) * Core::Rand->Float(0.85f, 1.0f));
 
             m_BlockList.BindObject(pBlock);
         }
@@ -190,8 +193,9 @@ void cGame::Move()
         {
             if(!pBlock->GetState())
             {
-                const coreFloat fRealTime  = m_fEndTime + 0.05f * vPos.z;
+                const coreFloat fRealTime  = m_fEndTime + 0.05f * vPos.z + 2.0f * (1.0f - pBlock->GetColor3().x);
                 const coreFloat fRealSpeed = (fRealTime < 0.0f) ? 0.0f : 40.0f;
+
                 pBlock->SetPosition(vPos + coreVector3(vPos.xy().Normalized() * (TIME * fRealSpeed), 0.0f));
             }
         }
