@@ -44,8 +44,8 @@ cGame::cGame()noexcept
         const coreFloat fHeight   = I_TO_F(j) * -BLOCK_HEIGHT - 1.0f;
         const coreFloat fRadius   = 2.0f*PI * fDistance;
         const coreUintW iNum      = FLOOR(fRadius / 2.7f);
-        const coreFloat fAngle    = 2.0f*PI * RCP(I_TO_F(iNum));
-        const coreFloat fFix      = 1.0f + FRACT(fRadius / 2.7f) * RCP(I_TO_F(iNum));
+        const coreFloat fAngle    = 2.0f*PI / I_TO_F(iNum);
+        const coreFloat fFix      = 1.0f + FRACT(fRadius / 2.7f) / I_TO_F(iNum);
 
         for(coreUintW i = 0u; i < iNum; ++i)
         {

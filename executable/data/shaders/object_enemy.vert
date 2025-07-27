@@ -10,7 +10,7 @@
 #include "engine/data_ambient.glsl"
 
 
-varying float v_v1Distance;
+smoothEx varying float v_v1Distance;
 
 
 void VertexMain()

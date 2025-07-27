@@ -45,8 +45,8 @@ void CoreApp::Setup()
     Core::Manager::Resource->Load<coreModel> ("object_enemy.md3z",       CORE_RESOURCE_UPDATE_AUTO,   "data/models/object_enemy.md3z", CORE_MODEL_LOAD_NO_CLUSTERS);
     Core::Manager::Resource->Load<coreModel> ("object_player.md3z",      CORE_RESOURCE_UPDATE_AUTO,   "data/models/object_player.md3z", CORE_MODEL_LOAD_NO_CLUSTERS);
 
-    Core::Manager::Resource->Load<coreShader>("fullscreen.vert",         CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/fullscreen.vert", CORE_SHADER_OPTION_NO_ROTATION);
-    Core::Manager::Resource->Load<coreShader>("fullscreen.frag",         CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/fullscreen.frag");
+    Core::Manager::Resource->Load<coreShader>("fullscreen.vert",         CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/fullscreen.vert", CORE_SHADER_OPTION_NO_ROTATION CORE_SHADER_OPTION_NO_PERSPECTIVE);
+    Core::Manager::Resource->Load<coreShader>("fullscreen.frag",         CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/fullscreen.frag", CORE_SHADER_OPTION_NO_PERSPECTIVE);
     Core::Manager::Resource->Load<coreShader>("object_block.vert",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_block.vert");
     Core::Manager::Resource->Load<coreShader>("object_block.frag",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_block.frag");
     Core::Manager::Resource->Load<coreShader>("object_block_inst.vert",  CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_block.vert", CORE_SHADER_OPTION_INSTANCING);
@@ -57,8 +57,8 @@ void CoreApp::Setup()
     Core::Manager::Resource->Load<coreShader>("object_enemy_inst.frag",  CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_enemy.frag", CORE_SHADER_OPTION_INSTANCING);
     Core::Manager::Resource->Load<coreShader>("object_player.vert",      CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_player.vert");
     Core::Manager::Resource->Load<coreShader>("object_player.frag",      CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/object_player.frag");
-    Core::Manager::Resource->Load<coreShader>("shadow_layer.vert",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_layer.vert", CORE_SHADER_OPTION_NO_ROTATION);
-    Core::Manager::Resource->Load<coreShader>("shadow_layer.frag",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_layer.frag");
+    Core::Manager::Resource->Load<coreShader>("shadow_layer.vert",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_layer.vert", CORE_SHADER_OPTION_NO_ROTATION CORE_SHADER_OPTION_NO_PERSPECTIVE);
+    Core::Manager::Resource->Load<coreShader>("shadow_layer.frag",       CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_layer.frag", CORE_SHADER_OPTION_NO_PERSPECTIVE);
     Core::Manager::Resource->Load<coreShader>("shadow_object.vert",      CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_object.vert", CORE_SHADER_OPTION_NO_ROTATION);
     Core::Manager::Resource->Load<coreShader>("shadow_object.frag",      CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_object.frag", CORE_SHADER_OPTION_NO_EARLY_DEPTH);
     Core::Manager::Resource->Load<coreShader>("shadow_object_inst.vert", CORE_RESOURCE_UPDATE_MANUAL, "data/shaders/shadow_object.vert", CORE_SHADER_OPTION_INSTANCING CORE_SHADER_OPTION_NO_ROTATION);

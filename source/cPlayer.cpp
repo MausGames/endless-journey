@@ -62,7 +62,7 @@ void cPlayer::Move()
         }
     }
 
-    const coreFloat fSpeed = 600.0f * RCP(2.0f*PI * m_vLayerPos.x + 1.5f);
+    const coreFloat fSpeed = 600.0f / (2.0f*PI * m_vLayerPos.x + 1.5f);
 
     if(bInputLeft)  m_fVelocity -= TIME * fSpeed;
     if(bInputRight) m_fVelocity += TIME * fSpeed;
@@ -89,7 +89,7 @@ void cPlayer::Move()
     const coreBool bFinalJump = (m_iStepNew == 0u);
 
     const coreVector2 vLayerDir = coreVector2::Direction(m_fLayerAngle);
-    const coreFloat   fJump     = SIN(m_fStepValue * PI) * RCP(m_fStepSpeed) * (bFinalJump ? 2.0f : 1.2f);
+    const coreFloat   fJump     = SIN(m_fStepValue * PI) / m_fStepSpeed * (bFinalJump ? 2.0f : 1.2f);
 
     m_vLayerPos.x = (LERPS(I_TO_F(m_iStepOld), I_TO_F(m_iStepNew),                          m_fStepValue) - 1.0f) *  BLOCK_DISTANCE + BLOCK_START - 1.0f;
     m_vLayerPos.y = (LERPS(I_TO_F(m_iStepOld), I_TO_F(m_iStepNew + (bFinalJump ? 4u : 0u)), m_fStepValue) - 1.0f) * -BLOCK_HEIGHT;
@@ -104,7 +104,7 @@ void cPlayer::Move()
     {
         if(!coreMath::IsNear(m_fVelocity, 0.0f))
         {
-            const coreMatrix3 mRota = coreMatrix4::RotationAxis(m_fVelocity * RCP(fSpeed) * TIME * -150.0f, coreVector3(vPos.xy().Normalized(), 0.0f)).m123();
+            const coreMatrix3 mRota = coreMatrix4::RotationAxis(m_fVelocity / fSpeed * TIME * -150.0f, coreVector3(vPos.xy().Normalized(), 0.0f)).m123();
 
             this->SetDirection  ((this->GetDirection  () * mRota).Normalized());
             this->SetOrientation((this->GetOrientation() * mRota).Normalized());

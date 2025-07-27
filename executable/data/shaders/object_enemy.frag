@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////////////////
 
 
-varying float v_v1Distance;
+smoothEx varying float v_v1Distance;
 
 
 void FragmentMain()

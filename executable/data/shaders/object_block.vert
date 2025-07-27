@@ -10,8 +10,8 @@
 #include "engine/data_ambient.glsl"
 
 
-flat varying float v_v1Front;
-varying      float v_v1Gradient;
+flat     varying float v_v1Front;
+smoothEx varying float v_v1Gradient;
 
 
 void VertexMain()
